@@ -121,3 +121,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.U3Storage'
+
+# UpStorage Configurations
+AUTH_TOKEN = 'testtoken'
+API_KEY = 'testkey1'
+USERNAME = 'sakib'
+PROJECT_NAME = 'PMS'
