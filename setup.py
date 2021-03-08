@@ -7,7 +7,7 @@ assert "." in project_version
 
 
 assert os.path.isfile("django-upstorage-backend/version.py")
-with open("UpStorageApiClient/VERSION", "w", encoding="utf-8") as fh:
+with open("django-upstorage-backend/VERSION", "w", encoding="utf-8") as fh:
     fh.write(f"{project_version}\n")
 
 
