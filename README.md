@@ -15,7 +15,7 @@ This is a custom django storage backend for `UpStorage`
 DEFAULT_FILE_STORAGE = 'django-upstorage-backend.storages.backends.U3Storage'
 ````
 
-2.Set some required KEYS to `settings.py`
+2. Set some required KEYS to `settings.py`
 ````python
 AUTH_TOKEN = 'auth token from your account'
 API_KEY = 'api key of your project'
