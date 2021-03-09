@@ -5,8 +5,8 @@ import subprocess
 project_version = subprocess.run(['git', 'describe', '--tags'], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
 assert "." in project_version
 
-assert os.path.isfile("django-upstorage-backend/version.py")
-with open("django-upstorage-backend/VERSION", "w", encoding="utf-8") as fh:
+assert os.path.isfile("django_upstorage_backend/version.py")
+with open("django_upstorage_backend/VERSION", "w", encoding="utf-8") as fh:
     fh.write(f"{project_version}\n")
 
 
@@ -17,7 +17,7 @@ def read_file(filename):
 
 # Setting up
 setup(
-    name="django-upstorage-backend",
+    name="django_upstorage_backend",
     version=project_version,
     author="Sakib (Florian Dedov)",
     author_email="<mail@neuralnine.com>",
@@ -28,7 +28,7 @@ setup(
     url='https://github.com/QuackCoding/DjangoUpStorageBackend',
     package_data={'UpStorageApiClient': ['VERSION']},
     install_requires=['UpStorageApiClient'],
-    keywords=['python', 'storage', 'api', 'upstorage', 'django-upstorage-backend'],
+    keywords=['python', 'storage', 'api', 'upstorage', 'django_upstorage_backend'],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
