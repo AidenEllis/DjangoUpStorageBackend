@@ -2,6 +2,7 @@ from django.core.files.storage import Storage
 from django.utils.deconstruct import deconstructible
 from UpStorageApiClient.api import UpStorageBucket
 from .utils import get_setting
+from django.core.files import File
 
 
 @deconstructible
@@ -21,6 +22,13 @@ class U3Storage(Storage):
         pass
 
     def _save(self, name, content):
+        upload_to_list = name.split('\\')
+        upload_to = "".join(str(x + '____set_dir_name____') for x in upload_to_list[:-1])
+
+        content_name = f"{upload_to}{content.name}"
+
+        content = File(content, content_name)
+
         client = UpStorageBucket(auth_token=self.AUTH_TOKEN, api_key=self.API_KEY)
         req = client.upload(file=content)
         return str(req['file']).split('/')[-2]
