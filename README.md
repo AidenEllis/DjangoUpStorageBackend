@@ -5,14 +5,14 @@ This is a custom django storage backend for `UpStorage`
 ## Installation
 1. Install Library Using `pip`
 ````shell script
->> pip install django_upstorage_backend
+>> pip install django-upstorage-backend
 ````
 
 ## Starting Guide
 
 1. Set The Custom Storage Backend. Now Open settings.py of your project.
 ````python
-DEFAULT_FILE_STORAGE = 'django_upstorage_backend.storages.backends.U3Storage'
+DEFAULT_FILE_STORAGE = 'django-upstorage-backend.storages.backends.U3Storage'
 ````
 
 2. Set some required KEYS to `settings.py`
