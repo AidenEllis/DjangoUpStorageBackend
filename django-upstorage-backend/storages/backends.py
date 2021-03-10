@@ -22,6 +22,11 @@ class U3Storage(Storage):
         pass
 
     def _save(self, name, content):
+        """
+        Unfortunately you can't send the filename with the folder name it will convert to just the file name.
+        so we add special charecter to split those '/'. we do it by '____set_dir_name____' this special
+        word.
+        """
         upload_to_list = name.split('\\')
         upload_to = "".join(str(x + '____set_dir_name____') for x in upload_to_list[:-1])
 
@@ -31,10 +36,11 @@ class U3Storage(Storage):
 
         client = UpStorageBucket(auth_token=self.AUTH_TOKEN, api_key=self.API_KEY)
         req = client.upload(file=content)
-        return str(req['file']).split('/')[-2]
+
+        return str(req['file']).split(f"/{self.PROJECT_NAME}")[-1][1:]
 
     def url(self, name):
-        return f'http://127.0.0.1:8000/api/storage/file/{self.USERNAME}/{self.PROJECT_NAME}/{name}/'
+        return f'http://127.0.0.1:8000/api/storage/file/{self.USERNAME}/{self.PROJECT_NAME}/{name}'
 
     def exists(self, name):
         return False
