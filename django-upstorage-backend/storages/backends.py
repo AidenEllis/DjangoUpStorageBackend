@@ -17,6 +17,7 @@ class U3Storage(Storage):
         self.API_KEY = get_setting('API_KEY')
         self.USERNAME = get_setting('USERNAME')
         self.PROJECT_NAME = get_setting('PROJECT_NAME')
+        self.bucket = UpStorageBucket(auth_token=self.AUTH_TOKEN, api_key=self.API_KEY)
 
     def _open(self, name, mode='rb'):
         pass
@@ -34,13 +35,15 @@ class U3Storage(Storage):
 
         content = File(content, content_name)
 
-        client = UpStorageBucket(auth_token=self.AUTH_TOKEN, api_key=self.API_KEY)
-        req = client.upload(file=content)
+        response = self.bucket.upload(file=content)
 
-        return str(req['file']).split(f"/{self.PROJECT_NAME}")[-1][1:]
+        return str(response['file']).split(f"/{self.PROJECT_NAME}")[-1][1:]
 
     def url(self, name):
         return f'http://127.0.0.1:8000/api/storage/file/{self.USERNAME}/{self.PROJECT_NAME}/{name}'
 
     def exists(self, name):
         return False
+
+    def delete(self, name):
+        self.bucket.delete(name)
