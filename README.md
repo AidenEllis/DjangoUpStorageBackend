@@ -25,17 +25,45 @@ PROJECT_NAME = 'Created Project name'
 
 Thats it, We are all done. Now all of your files will be handeled by the custom UpStorage's Backend Storage.
 
-## Some More Info
+
+## Advanced Guide
 
 * `You don't need to set 'upload_to' in model Fields (Defaultly it files will be saved on the root of your project.)`
 
 * `File Link Will Be Stored On Your Model As Expected.You Can call them as you do usally.`
 
+* `You Can also set 'upload_to='specific/folder' in your model like:`
+   ````python
+  Class TestModel(model.Model):
+      image = models.ImageField(upload_to='to/my/folder')
+  
+  # this will save the file to that folder.if there's no folder it will create it.
+  ````
 
-## Upcoming Updates
-
-* `Deletes File from UpStorage When Django Deletes it from its own database.You can easily enable or disable this feature`
-
-* `Save Files On Custom Folders In Your Project.You can set specific folder location by adding the folder name on 'upload_to='my_folder' on ModelFields.By using this you can organize your files into specific folders.`
-
+* `If you want to delete the image from the UpStorage Bucket when you delete it from django, you have to do it a bit differently.Lemme show you`
+   ````python
+  Class TestModel(model.Model):
+      image = models.ImageField()
+  
+  # To delete the image you have to delete that by writing:
+  
+  obj = TestModel.objects.get(id=pk)
+  obj.image.delete()
+  
+  # You can't directly delete it like this:
+  
+  obj.delete() # this won't delete the file from UpStorage
+  
+  # You have to delete the file field first to delete it.
+  ````
+  To make it simple you can override `delete` Method on your Model
+  
+  ````python
+  Class TestModel(model.Model):
+      image = models.ImageField()
+  
+      def delete(self):
+          self.image.delete()
+          super(TestModel, self).delete()
+  ````
 
