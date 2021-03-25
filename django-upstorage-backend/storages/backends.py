@@ -12,7 +12,8 @@ class U3Storage(Storage):
     """
 
     def __init__(self):
-        self.storage_host = 'http://127.0.0.1:8000/api/storage/file'
+        self.host = 'https://upstorage.pythonanywhere.com'
+        self.storage_host = f'{self.host}/api/storage/file'
         self.AUTH_TOKEN = get_setting('AUTH_TOKEN')
         self.API_KEY = get_setting('API_KEY')
         self.USERNAME = get_setting('USERNAME')
@@ -40,7 +41,7 @@ class U3Storage(Storage):
         return str(response['file']).split(f"/{self.PROJECT_NAME}")[-1][1:]
 
     def url(self, name):
-        return f'http://127.0.0.1:8000/api/storage/file/{self.USERNAME}/{self.PROJECT_NAME}/{name}'
+        return f'{self.storage_host}/{self.USERNAME}/{self.PROJECT_NAME}/{name}'
 
     def exists(self, name):
         return False
