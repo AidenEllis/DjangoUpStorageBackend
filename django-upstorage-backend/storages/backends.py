@@ -39,7 +39,7 @@ class U3Storage(Storage):
 
         response = self.bucket.upload(file=content)
 
-        return str(response['file']).split(f"/{self.PROJECT_NAME}")[-1][1:]
+        return str(response['file']).split(f"/{self.PROJECT_NAME}")[-1]
 
     def url(self, name):
         return f'{self.storage_host}/{self.USERNAME}/{self.PROJECT_NAME}/{name}'
